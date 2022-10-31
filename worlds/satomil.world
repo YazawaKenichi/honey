@@ -1574,85 +1574,85 @@
       </link>
       <static>0</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>0.012546 0.006758 0 0 -0 0</pose>
+      <pose>0.533472 0.55415 0 0 -0 0</pose>
     </model>
     <state world_name='CRANE-X7 with Table'>
-      <sim_time>951 639000000</sim_time>
-      <real_time>2549 704818451</real_time>
-      <wall_time>1666547044 96438005</wall_time>
-      <iterations>951639</iterations>
+      <sim_time>115 374000000</sim_time>
+      <real_time>125 847951806</real_time>
+      <wall_time>1667187410 139584762</wall_time>
+      <iterations>115374</iterations>
       <model name='crane_x7'>
         <pose>0 0 1.02 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='base_link'>
           <pose>0 0 1.02 0 -0 0</pose>
-          <velocity>0 -0 -0 0 -0 0</velocity>
-          <acceleration>0 0 -1e-06 3e-06 5.8e-05 1.5e-05</acceleration>
-          <wrench>0 0 -0 0 -0 0</wrench>
+          <velocity>-0 0 -0 0 -0 0</velocity>
+          <acceleration>-0 0 0 3.6e-05 2.3e-05 1.3e-05</acceleration>
+          <wrench>-0 0 0 0 -0 0</wrench>
         </link>
         <link name='crane_x7_gripper_base_link'>
-          <pose>-3.3e-05 4e-06 1.644 -1.2e-05 0.002877 4.2e-05</pose>
-          <velocity>0 -0 -0 0 1.5e-05 -1.4e-05</velocity>
-          <acceleration>4.1e-05 -1.2e-05 5e-06 -1.98793 0.04645 -0.404275</acceleration>
-          <wrench>5e-06 -1e-06 1e-06 0 -0 0</wrench>
+          <pose>3e-05 3e-06 1.644 2e-06 0.002992 0.003597</pose>
+          <velocity>-0 0 0 0 -1e-06 -4e-06</velocity>
+          <acceleration>-0 0 0 0.115077 -0.072297 0.049652</acceleration>
+          <wrench>-0 0 0 0 -0 0</wrench>
         </link>
         <link name='crane_x7_gripper_finger_a_link'>
-          <pose>-0.011964 4e-06 1.66803 -1.2e-05 -0.009728 4.2e-05</pose>
-          <velocity>-0 0 0 -1e-06 -4e-06 -1.2e-05</velocity>
-          <acceleration>0.000228 -2.9e-05 4.8e-05 -0.057982 -0.499575 2.08553</acceleration>
-          <wrench>4e-06 -0 1e-06 0 -0 0</wrench>
+          <pose>-0.011899 -4e-05 1.66803 2e-06 -0.003269 0.003598</pose>
+          <velocity>-0 0 -0 0 -2.4e-05 -4e-06</velocity>
+          <acceleration>0 0 -0 2.96468 1.39418 -1.78589</acceleration>
+          <wrench>0 0 -0 0 -0 0</wrench>
         </link>
         <link name='crane_x7_gripper_finger_b_link'>
-          <pose>0.012036 5e-06 1.66796 -1.2e-05 0.015481 4.1e-05</pose>
-          <velocity>0 -0 -0 0 4.5e-05 -1.5e-05</velocity>
-          <acceleration>-0.000168 3.4e-05 3.5e-05 0.000177 0.004735 0.002249</acceleration>
-          <wrench>-2e-06 0 0 0 -0 0</wrench>
+          <pose>0.012101 4.6e-05 1.66796 2e-06 0.009253 0.003598</pose>
+          <velocity>-0 -0 0 0 2.3e-05 -4e-06</velocity>
+          <acceleration>0 -0 0 -0 -0 -1e-06</acceleration>
+          <wrench>0 -0 0 0 -0 0</wrench>
         </link>
         <link name='crane_x7_lower_arm_fixed_part_link'>
-          <pose>-0.000281 2e-06 1.375 -7e-06 0.000771 1.7e-05</pose>
-          <velocity>0 -0 0 0 -2e-06 -3e-06</velocity>
-          <acceleration>-6.2e-05 5e-06 1.1e-05 -1.03048 -0.009456 0.025433</acceleration>
-          <wrench>-1.4e-05 1e-06 2e-06 0 -0 0</wrench>
+          <pose>-0.00025 1e-06 1.375 -5e-06 0.000892 -0.000168</pose>
+          <velocity>-0 0 -0 0 -1e-06 0</velocity>
+          <acceleration>0 0 -0 -1.19585 -0.004211 0.025747</acceleration>
+          <wrench>0 0 -0 0 -0 0</wrench>
         </link>
         <link name='crane_x7_lower_arm_revolute_part_link'>
-          <pose>-0.000187 3e-06 1.496 -6e-06 0.000772 0.002031</pose>
-          <velocity>0 -0 0 0 -3e-06 5e-06</velocity>
-          <acceleration>-2.1e-05 -1.2e-05 1.1e-05 1.03131 0.016744 -0.017571</acceleration>
-          <wrench>-4e-06 -3e-06 2e-06 0 -0 0</wrench>
+          <pose>-0.000142 2e-06 1.496 -3e-06 0.000892 0.001842</pose>
+          <velocity>-0 0 -0 0 -1e-06 0</velocity>
+          <acceleration>0 -0 0 1.21786 0.013132 -0.018816</acceleration>
+          <wrench>0 -0 0 0 -0 0</wrench>
         </link>
         <link name='crane_x7_shoulder_revolute_part_link'>
-          <pose>0 0 1.061 0 0 -0.002006</pose>
-          <velocity>0 -0 0 0 -0 2e-06</velocity>
-          <acceleration>-1.2e-05 -1.1e-05 0 0.032948 -0.02349 0.006334</acceleration>
-          <wrench>-3e-06 -3e-06 0 0 -0 0</wrench>
+          <pose>0 0 1.061 0 0 -0.002004</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 -0 0 0.031454 -0.023328 0.00945</acceleration>
+          <wrench>0 -0 0 0 -0 0</wrench>
         </link>
         <link name='crane_x7_upper_arm_fixed_part_link'>
-          <pose>0 0 1.125 -2e-06 -0.001123 -0.002006</pose>
-          <velocity>0 -0 0 0 -0 2e-06</velocity>
-          <acceleration>-2.5e-05 -1.4e-05 2e-06 0.718274 -0.005329 -0.003046</acceleration>
-          <wrench>-3e-06 -2e-06 0 0 -0 0</wrench>
+          <pose>0 0 1.125 -2e-06 -0.001002 -0.002004</pose>
+          <velocity>-0 0 0 0 -1e-06 0</velocity>
+          <acceleration>0 -0 0 0.553746 -0.004827 0.000969</acceleration>
+          <wrench>0 -0 0 0 -0 0</wrench>
         </link>
         <link name='crane_x7_upper_arm_revolute_part_link'>
-          <pose>-7.3e-05 1e-06 1.19 -7e-06 -0.001123 1.7e-05</pose>
-          <velocity>0 -0 0 0 0 -2e-06</velocity>
-          <acceleration>-5.8e-05 1.2e-05 3e-06 -1.29799 0.008192 0.062567</acceleration>
-          <wrench>-1.9e-05 4e-06 1e-06 0 -0 0</wrench>
+          <pose>-6.5e-05 0 1.19 -5e-06 -0.001002 -0.000168</pose>
+          <velocity>-0 0 -0 0 -1e-06 0</velocity>
+          <acceleration>0 0 0 -1.05461 0.001432 0.057077</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='crane_x7_wrist_link'>
-          <pose>-8.8e-05 4e-06 1.625 -6e-06 0.002877 0.002031</pose>
-          <velocity>-0 -0 -0 0 5e-06 6e-06</velocity>
-          <acceleration>4e-06 1.7e-05 8e-06 -0.162492 0.545369 -0.977808</acceleration>
-          <wrench>1e-06 2e-06 1e-06 0 -0 0</wrench>
+          <pose>-2.7e-05 3e-06 1.625 -3e-06 0.002993 0.001842</pose>
+          <velocity>-0 0 0 0 -1e-06 0</velocity>
+          <acceleration>0 -0 0 2.53942 -0.10851 1.55861</acceleration>
+          <wrench>0 -0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='fork'>
-        <pose>0.300004 0.000522 1.02172 -0.000285 0.051215 3.13894</pose>
+        <pose>0.299527 0 1.02171 -1e-05 0.051229 3.1414</pose>
         <scale>1 1 1</scale>
         <link name='link_1'>
-          <pose>0.300004 0.000522 1.02172 1.57052 0.051215 3.13894</pose>
+          <pose>0.299527 0 1.02171 1.57079 0.051229 3.1414</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0.102273 0.012813 16.2403 1.20249 -0.488741 3.14147</acceleration>
-          <wrench>-0.102273 0.012813 16.2403 0 -0 0</wrench>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='ground_plane'>
@@ -1676,13 +1676,13 @@
         </link>
       </model>
       <model name='wood_cube_5cm'>
-        <pose>0.191873 -0.000765 1.014 -0 -0 -0.019455</pose>
+        <pose>0.195595 0.001608 1.014 -0 -0 -0.095082</pose>
         <scale>1 1 1</scale>
         <link name='wood_cube_5cm::link'>
-          <pose>0.191873 -0.000765 1.039 -0 -0 -0.019455</pose>
+          <pose>0.195595 0.001608 1.039 -0 -0 -0.095082</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -0 0 -0 0</acceleration>
-          <wrench>0 0 -0 0 -0 0</wrench>
+          <acceleration>0 -0 0 0 -0 0</acceleration>
+          <wrench>0 -0 0 0 -0 0</wrench>
         </link>
       </model>
       <light name='sun'>
@@ -1691,7 +1691,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>2.66724 -2.77829 2.20173 0 0.391279 2.26163</pose>
+        <pose>1.44278 -0.899135 2.08678 0 0.619643 2.3802</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>

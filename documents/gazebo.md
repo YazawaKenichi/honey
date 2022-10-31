@@ -41,8 +41,8 @@ $ gazebo hoge.world
 
 ## 参考サイト
 
-[Tutorial : Gazebo Model Editor (Englis)](https://classic.gazebosim.org/tutorials?tut=guided_b3)
-
+- [Tutorial : Gazebo Model Editor (Englis)](https://classic.gazebosim.org/tutorials?tut=guided_b3)
+- [ROS講座37 gazebo worldを作成する (Japanese)](https://qiita.com/srs/items/9b23ad12bea9e3ec0480)
 # Gazebo を使う上で知っておきたい知識？
 ## SDF ファイルの文法は XML
 ## Model ファイルと World ファイルの違い
