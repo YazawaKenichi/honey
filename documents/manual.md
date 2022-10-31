@@ -138,11 +138,42 @@ rospy.exceptions.ROSException: rospy.init_node() has already been called with di
 ### 対処法
 実際にコードを見たら複数あったので、片方消した
 
-## 
+## 存在しない arg を指定している 
 ### 状況
+gazebo でシミュレーションできるようにしている最中、world ファイルを作ったあとに、launch ファイルを作ろうとした時。
 ### エラー文
+```
+RLException: unused args [satomi] for include of [/home/shiokaze/catkin_ws/src/crane_x7_ros/crane_x7_gazebo/launch/crane_x7_with_table.launch]
+The traceback for the exception was written to the log file
+```
 ### 原因
+存在しない arg を指定している。
+
+#### <arg ... > 要素についての話
+arg は launch ファイル内で変数を定義するときに使用する。
+
+具体例として以下のサンプルを示す。
+```
+<launch>
+  <arg name="mode" default="true"/>
+    ... 中略 ...
+</launch>
+```
+
+`<arg name=ARGUMENT_NAME default=VELUE />` とすることで、`ARGUMENT_NAME` に `VALUE` を格納することが可能。
+
+`VALUE` に入りうる型は以下の通り。
+- boolean
+- double
+- string
+
+尚、大文字小文字の判別はされないため、`"false"` と `"False"` は同義として扱われる。
+
 ### 対処法
+arg を定義するか、いっそのこと変数の使用をやめればいい。
+
+### 参考サイト
+- [ROS 講座 99 エラーと対策 (Japanese)](https://qiita.com/srs/items/de7bf71b96dc26b1f53b#%E5%AD%98%E5%9C%A8%E3%81%97%E3%81%AA%E3%81%84-arg%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B)
 
 ## 
 ### 状況

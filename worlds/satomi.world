@@ -1,5 +1,5 @@
 <sdf version='1.7'>
-  <world name='CRANE-X7 with Table'>
+  <world name='satomi'>
     <scene>
       <shadows>0</shadows>
       <ambient>0.4 0.4 0.4 1</ambient>

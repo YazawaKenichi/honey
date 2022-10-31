@@ -1,5 +1,9 @@
 # フォークモデルを Gazebo 上に出現させる
 ## フォークモデルを作成する
+Inventor で作成したモデルを Gazebo に表示させる方法について記述する。
+
+今回使用するフォークは、動力・リンクのないオブジェクトであるため、モデルを Gazebo 上に表示させて使用する最も簡単な方法となっている。
+
 1. Autodesk Inventor で作成した
 1. STL ファイルで出力する
 
@@ -17,6 +21,11 @@
 1. 保存すると Gazebo の Insert に fork ができているはず...
 
 ## フォークと机とクレーンと
+Gazebo 上でシミュレートする環境を簡単に起動できるようにしたい。
+
+そのために状況を記述した world ファイルと、それを読み込むための launch ファイルを作成する。
+
+### 1.world ファイルを作成する
 1. crane_x7_with_table.launch を Gazebo で実行する
 1. 左側の Insert から fork を選択肢、一旦テキトーなところをクリックする
 1. fork のポジション `pose` を
@@ -32,17 +41,43 @@
 
     のように適切な値にする
 1. Gazebo のツールバーから World ファイルを保存する
+    ここでは保存した world ファイル名を `satomi.world` とする
 
-### 保存した world ファイルの開き方
-```
-$ gazebo hoge.world
-```
-シンプルですねー
+### 2.launch ファイルを使う
+roslaunch は ROS ノードを起動し、ROS でロボットを起動するための方法の一つ。
+
+この方法で、先程保存した world ファイルを開く方法について記述する。
+
+1. プロジェクトのルートディレクトリに launch ディレクトリを作成
+1. その中に satomi.launch ファイルを作成する ( 名前は任意 )
+    ゼロから書くのはだるいし、文法なんもわからんかったから、`crane_x7_gazebo` の `crane_x7_with_table.launch` をパクる。
+    
+    以下のコマンドで launch ファイルをコピーする。
+    ```
+    $ cp ~/catkin_ws/src/crane_x7_ros/crane_x7_gazebo/launch/crane_x7_with_table.launch ~/catkin_ws/src/honey/launch/satomi.launch
+    ```
+    コピーした satomi.launch を編集する。
+    ```
+    ... 略 ( デフォルトで 28 行目あたり ) ...
+    <arg name="world_name" value="$(find crane_x7_gazebo)/world/table.world"/>
+    ... 略 ...
+    ```
+    ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    ```
+    ... 略 ...
+    <arg name="world_name" value="$(find honey)/world/satomi.world/>
+    ... 略 ...
+    ```
+1. 実行
+    ```
+    $ roslaunch honey satomi.launch
+    ```
 
 ## 参考サイト
-
 - [Tutorial : Gazebo Model Editor (Englis)](https://classic.gazebosim.org/tutorials?tut=guided_b3)
 - [ROS講座37 gazebo worldを作成する (Japanese)](https://qiita.com/srs/items/9b23ad12bea9e3ec0480)
+- [ROS入門 (20) - ROS1のlaunchファイルの利用 (Japanese)](https://note.com/npaka/n/na4d2beadf995)
+
 # Gazebo を使う上で知っておきたい知識？
 ## SDF ファイルの文法は XML
 ## Model ファイルと World ファイルの違い
