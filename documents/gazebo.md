@@ -57,7 +57,16 @@ roslaunch は ROS ノードを起動し、ROS でロボットを起動するた�
     $ cp ~/catkin_ws/src/crane_x7_ros/crane_x7_gazebo/launch/crane_x7_with_table.launch ~/catkin_ws/src/honey/launch/satomi.launch
     ```
     コピーした satomi.launch を編集する。
+    
+    大体 20 行目くらいに以下を挿入。
     ```
+    ... 略 ( だいたい 20 行目くらい ) ...
+    <!-- crane_x7_d435 configurations -->
+    <arg name="use_gazebo" default="true" />
+    ... 略 ...
+    ```
+    以下の行を編集する。
+    ``` 
     ... 略 ( デフォルトで 28 行目あたり ) ...
     <arg name="world_name" value="$(find crane_x7_gazebo)/world/table.world"/>
     ... 略 ...
@@ -68,6 +77,30 @@ roslaunch は ROS ノードを起動し、ROS でロボットを起動するた�
     <arg name="world_name" value="$(find honey)/world/satomi.world/>
     ... 略 ...
     ```
+    以下の行を編集する。
+    ``` 
+    ... 略 ( デフォルトで 37 行目あたり ) ...
+    <param name="robot_description"
+            command="$(find xacro)/xacro --inorder '$(find crane_x7_discription)/urdf/crane_x7_discription.urdf.xacro' use_effort_gripper:=$(arg use_effort_gripper)"
+        />
+    ... 略 ...
+    ```
+    ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    ```
+    ... 略 ...
+    <param name="robot_description"
+            command="$(find xacro)/xacro --inorder '$(find crane_x7_d435)/urdf/crane_x7_d435.xacro' use_effort_gripper:=$(arg use_effort_gripper)"
+        />
+    ... 略 ...
+    ```
+1. 必要なリポジトリを clone
+    RealSense の urdf ファイルを、[Kuwamai](https://github.com/Kuwamai/crane_x7_d435)様の GitHub から clone させてもらいます。
+    ```
+    $ cd ~/catkin_ws
+    $ git clone https://github.cm/Kuwamai/crane_x7_d435
+    $ (cd ~/catkin_ws && catkin_make)
+    $ source ~/catkin_ws/devel/setup.sh
+    ```
 1. 実行
     ```
     $ roslaunch honey satomi.launch
@@ -77,6 +110,7 @@ roslaunch は ROS ノードを起動し、ROS でロボットを起動するた�
 - [Tutorial : Gazebo Model Editor (Englis)](https://classic.gazebosim.org/tutorials?tut=guided_b3)
 - [ROS講座37 gazebo worldを作成する (Japanese)](https://qiita.com/srs/items/9b23ad12bea9e3ec0480)
 - [ROS入門 (20) - ROS1のlaunchファイルの利用 (Japanese)](https://note.com/npaka/n/na4d2beadf995)
+- [GitHub - Kuwamai / crane_x7_d435 (Japanese)](https://github.com/Kuwamai/crane_x7_d435)
 
 # Gazebo を使う上で知っておきたい知識？
 ## SDF ファイルの文法は XML
