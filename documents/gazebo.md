@@ -1,3 +1,54 @@
+# CRANE-X7 に RealSense を搭載する
+1. パッケージのルートディレクトリに launch ディレクトリを作成
+    ```
+    $ mkdir launch
+    ```
+
+1. satomi.launch ファイルを作成
+
+    ゼロから launch ファイルを作成するのは面倒くさい（文法の勉強とかしてる暇ない）ので、すでに作成されている launch ファイルからコピペして新しい launch ファイルを作る。
+
+    1. 必要なリポジトリを clone
+        RealSense の launch ファイルと urdf ファイルを、[Kuwamai](https://github.com/Kuwamai/crane_x7_d435)様の GitHub から clone させてもらいます。
+        ```
+        $ cd ~/catkin_ws
+        $ git clone https://github.cm/Kuwamai/crane_x7_d435
+        $ (cd ~/catkin_ws && catkin_make)
+        $ source ~/catkin_ws/devel/setup.sh
+        ```
+
+    1. 必要なファイルを自分のパッケージ内にコピー
+        ```
+        $ cp crane_x7_ros/crane_x7_gazebo/launch/bringup_sim.launch honey/launch/bringup_sim.launch
+        ```
+
+    1. `crane_x7_gazebo` の `crane_x7_with_table.launch` と、`crane_x7_d435` の `bringup_sim.launch` を合体させる
+
+        `bringup_sim.launch`
+        ```
+        <include file="$(find crane_x7_gazebo)/launch/crane_x7_with_table.launch" />
+        ```
+        上記の部分を、下記の部分に置き換える。
+
+        `crane_x7_with_table.launch`
+        ```
+        <arg name="use_gui" default="false" />
+        ... 略 ...
+            <arg name="use_gui" default="$(arg use_gui)" />$
+        </include>
+        ```
+        つまり、わざわざ `bringup_sim.launch` で `include` して読み込んでいるものを、直接ファイルに書き込んでやろうという話。
+
+    1. 書き換えた `bringup_sim.launch` を `satomi.launch` にする
+        ```
+        $ mv bringup_sim.launch satomi.launc
+        ```
+
+1. launch ファイルを実行する
+    ```
+    $ roslaunch honey satomi.launch
+    ```    
+
 # フォークモデルを Gazebo 上に出現させる
 ## フォークモデルを作成する
 Inventor で作成したモデルを Gazebo に表示させる方法について記述する。
@@ -9,7 +60,7 @@ Inventor で作成したモデルを Gazebo に表示させる方法について
 
     ** この時、オプションから STL の単位を メートル にすることを忘れないこと！ **
 
-1. STL ファイルは `model/meshes` 推奨（別にここじゃなくてもいい）
+1. STL ファイルは `model/meshes` に保存することを推奨
 1. Gazebo を単体で開く
 1. `[Ctrl] + [M]` で Gazebo Model Editor を開く
 1. 左側のパレットで ```Model``` タブを選択し、```Model Plugins``` の ```Add``` から ```STL``` ファイルを選択する
@@ -26,7 +77,7 @@ Gazebo 上でシミュレートする環境を簡単に起動できるように�
 そのために状況を記述した world ファイルと、それを読み込むための launch ファイルを作成する。
 
 ### 1.world ファイルを作成する
-1. crane_x7_with_table.launch を Gazebo で実行する
+1. satomi.launch を Gazebo で実行する
 1. 左側の Insert から fork を選択肢、一旦テキトーなところをクリックする
 1. fork のポジション `pose` を
 
@@ -43,64 +94,16 @@ Gazebo 上でシミュレートする環境を簡単に起動できるように�
 1. Gazebo のツールバーから World ファイルを保存する
     ここでは保存した world ファイル名を `satomi.world` とする
 
-### 2.launch ファイルを使う
+### 2.launch ファイルから world ファイルを読み込む
 roslaunch は ROS ノードを起動し、ROS でロボットを起動するための方法の一つ。
 
-この方法で、先程保存した world ファイルを開く方法について記述する。
+この方法で、先程保存した world ファイルを開く
 
-1. プロジェクトのルートディレクトリに launch ディレクトリを作成
-1. その中に satomi.launch ファイルを作成する ( 名前は任意 )
-    ゼロから書くのはだるいし、文法なんもわからんかったから、`crane_x7_gazebo` の `crane_x7_with_table.launch` をパクる。
-    
-    以下のコマンドで launch ファイルをコピーする。
+1. satomi.launch の書き換え
     ```
-    $ cp ~/catkin_ws/src/crane_x7_ros/crane_x7_gazebo/launch/crane_x7_with_table.launch ~/catkin_ws/src/honey/launch/satomi.launch
+    <arg name="world_name" value="$(find crane_x7_gazebo)/worlds/table.world"/>
     ```
-    コピーした satomi.launch を編集する。
-    
-    大体 20 行目くらいに以下を挿入。
-    ```
-    ... 略 ( だいたい 20 行目くらい ) ...
-    <!-- crane_x7_d435 configurations -->
-    <arg name="use_gazebo" default="true" />
-    ... 略 ...
-    ```
-    以下の行を編集する。
-    ``` 
-    ... 略 ( デフォルトで 28 行目あたり ) ...
-    <arg name="world_name" value="$(find crane_x7_gazebo)/world/table.world"/>
-    ... 略 ...
-    ```
-    ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-    ```
-    ... 略 ...
-    <arg name="world_name" value="$(find honey)/world/satomi.world/>
-    ... 略 ...
-    ```
-    以下の行を編集する。
-    ``` 
-    ... 略 ( デフォルトで 37 行目あたり ) ...
-    <param name="robot_description"
-            command="$(find xacro)/xacro --inorder '$(find crane_x7_discription)/urdf/crane_x7_discription.urdf.xacro' use_effort_gripper:=$(arg use_effort_gripper)"
-        />
-    ... 略 ...
-    ```
-    ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-    ```
-    ... 略 ...
-    <param name="robot_description"
-            command="$(find xacro)/xacro --inorder '$(find crane_x7_d435)/urdf/crane_x7_d435.xacro' use_effort_gripper:=$(arg use_effort_gripper)"
-        />
-    ... 略 ...
-    ```
-1. 必要なリポジトリを clone
-    RealSense の urdf ファイルを、[Kuwamai](https://github.com/Kuwamai/crane_x7_d435)様の GitHub から clone させてもらいます。
-    ```
-    $ cd ~/catkin_ws
-    $ git clone https://github.cm/Kuwamai/crane_x7_d435
-    $ (cd ~/catkin_ws && catkin_make)
-    $ source ~/catkin_ws/devel/setup.sh
-    ```
+    の部分の、crane_x7_gazebo を 自分のパッケージ名にし、```table.world```
 1. 実行
     ```
     $ roslaunch honey satomi.launch

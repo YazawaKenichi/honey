@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="use_effort_gripper" default="false" />
-  <arg name="use_gazebo" default="true" />
-
   <!-- MoveIt configurations-->
   <arg name="use_gui" default="false" />
   <!-- By default, we do not start a database (it can be large) -->
@@ -19,6 +16,9 @@
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="headless" default="false"/>
+
+  <!-- Change the controller type of gripper from position to effort -->
+  <arg name="use_effort_gripper" default="false" />
 
   <include file="$(find crane_x7_control)/launch/crane_x7_fake_control.launch">
     <arg name="use_effort_gripper" value="$(arg use_effort_gripper)" />
@@ -51,9 +51,5 @@
     <arg name="debug" default="$(arg moveit_debug)" />
     <arg name="use_gui" default="$(arg use_gui)" />
   </include>
-
-  <param name="robot_description"
-    command="$(find xacro)/xacro --inorder '$(find crane_x7_d435)/urdf/crane_x7_d435.xacro' use_effort_gripper:=$(arg use_effort_gripper) use_gazebo:=$(arg use_gazebo)"
-    />
 
 </launch>
