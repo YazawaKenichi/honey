@@ -48,7 +48,17 @@
     ```
     $ roslaunch honey satomi.launch
     ```    
+    すると `CRANE-X7` のグリッパーの真横あたりに四角い箱が追加されていることがわかる。
+    
+    これが `RealSense D435 となる。
 
+### さっさとカメラを起動したい
+あるいは
+### とりあえずここまでで、正しく動作できるかを確認したい場合は以下を実行する
+1. Gazebo と RViz が開いたら、RViz で `Displays` の `Add`
+1. `Create visualization` の `By topic` タブを開く
+1. そのタブから `/camera/fake_cam_color/image_raw/Camera` を選択し、[OK] する
+1. すると、Gazebo 空間の RealSense D435 が取得した画像を見ることができる。
 # フォークモデルを Gazebo 上に出現させる
 ## フォークモデルを作成する
 Inventor で作成したモデルを Gazebo に表示させる方法について記述する。
