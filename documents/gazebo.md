@@ -68,18 +68,17 @@ Inventor で作成したモデルを Gazebo に表示させる方法について
 また、実際に使用したフォークモデルの STL ファイルは [こちら](https://github.com/yazawakenichi/honey/tree/main/models/meshes/fork) にあり、
 Autodesk Inventor Pro 2022 で作成したパーツ・アセンブリファイルは、[こちら（GrabCAD）](https://https://workbench.grabcad.com/workbench/projects/gcLbEpjExKeGrawJHAMI79yPYM8IIow4o7FhAo-OEd0hD7#/folder/12981129)に用意した。
 
-1. Autodesk Inventor で作成した
-1. STL ファイルで出力する
+1. Autodesk Inventor で作成したフォークモデルを STL ファイルで出力する
 
     ** この時、オプションから STL の単位を メートル にすることを忘れないこと！ **
 
-1. STL ファイルは `model/meshes` に保存することを推奨
+1. STL ファイルは `model/meshes` に保存することを推奨（ほんとはどこでもいい）
 1. Gazebo を単体で開く
 1. `[Ctrl] + [M]` で Gazebo Model Editor を開く
 1. 左側のパレットで ```Model``` タブを選択し、```Model Plugins``` の ```Add``` から ```STL``` ファイルを選択する
 1. 追加されたモデルをダブルクリックすると、モデルの位置や回転、慣性モーメント、見た目などを設定することができる
 
-    ちなみに `2 / PI` はおよそ `1.570796` なので、必要に応じて回転させる
+    ちなみに `PI / 2` はおよそ `1.570796` なので、必要に応じて回転させる
 
 1. 保存先を聞かれるので、プロジェクトの models を指定して名前を fork にする
 1. 保存すると Gazebo の Insert に fork ができているはず...
