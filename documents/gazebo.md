@@ -65,6 +65,9 @@ Inventor で作成したモデルを Gazebo に表示させる方法について
 
 今回使用するフォークは、動力・リンクのないオブジェクトであるため、モデルを Gazebo 上に表示させて使用する最も簡単な方法となっている。
 
+また、実際に使用したフォークモデルの STL ファイルは [こちら](https://github.com/yazawakenichi/honey/tree/main/models/meshes/fork) にあり、
+Autodesk Inventor Pro 2022 で作成したパーツ・アセンブリファイルは、[こちら（GrabCAD）](https://https://workbench.grabcad.com/workbench/projects/gcLbEpjExKeGrawJHAMI79yPYM8IIow4o7FhAo-OEd0hD7#/folder/12981129)に用意した。
+
 1. Autodesk Inventor で作成した
 1. STL ファイルで出力する
 
