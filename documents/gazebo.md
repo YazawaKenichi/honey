@@ -12,14 +12,14 @@
         RealSense の launch ファイルと urdf ファイルを、[Kuwamai](https://github.com/Kuwamai/crane_x7_d435)様の GitHub から clone させてもらいます。
         ```
         $ cd ~/catkin_ws
-        $ git clone https://github.cm/Kuwamai/crane_x7_d435
+        $ git clone https://github.com/Kuwamai/crane_x7_d435
         $ (cd ~/catkin_ws && catkin_make)
         $ source ~/catkin_ws/devel/setup.sh
         ```
 
     1. 必要なファイルを自分のパッケージ内にコピー
         ```
-        $ cp crane_x7_ros/crane_x7_gazebo/launch/bringup_sim.launch honey/launch/bringup_sim.launch
+        $ cp crane_x7_ros/crane_x7_d435/launch/bringup_sim.launch honey/launch/bringup_sim.launch
         ```
 
     1. `crane_x7_gazebo` の `crane_x7_with_table.launch` と、`crane_x7_d435` の `bringup_sim.launch` を合体させる
