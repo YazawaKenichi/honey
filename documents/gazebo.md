@@ -68,6 +68,15 @@ Inventor で作成したモデルを Gazebo に表示させる方法について
 また、実際に使用したフォークモデルの STL ファイルは [こちら](https://github.com/yazawakenichi/honey/tree/main/models/meshes/fork) にあり、
 Autodesk Inventor Pro 2022 で作成したパーツ・アセンブリファイルは、[こちら（GrabCAD）](https://https://workbench.grabcad.com/workbench/projects/gcLbEpjExKeGrawJHAMI79yPYM8IIow4o7FhAo-OEd0hD7#/folder/12981129)に用意した。
 
+0. Inventor でフォークモデルを作成する
+    今後しょうもない部分で苦戦しないようにするために、以下に意識してモデルを作成する。
+    - グリッパーが掴む場所の中心に原点を置く
+        自分で慣性モーメントを計算する必要がなくなる
+        パーツファイルを作成しているうちは考えなくて良いが、アセンブリファイルを作ってパーツファイルを組み立てたら、絶対座標系の xyz 平面とアセンブリを拘束することで、アセンブリを原点に固定する。
+    - グリッパーが開閉する方向は、RealSense の水平方向である
+        ものを掴んだときにカメラが遮られる可能性がある
+    - 出力する STL データは単位をメートルにする
+
 1. Autodesk Inventor で作成したフォークモデルを STL ファイルで出力する
 
     ** この時、オプションから STL の単位を メートル にすることを忘れないこと！ **
