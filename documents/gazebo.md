@@ -18,8 +18,9 @@
         ```
 
     1. 必要なファイルを自分のパッケージ内にコピー
+        `./catkin_ws/src`
         ```
-        $ cp crane_x7_ros/crane_x7_d435/launch/bringup_sim.launch honey/launch/bringup_sim.launch
+        $ cp crane_x7_d435/launch/bringup_sim.launch honey/launch/bringup_sim.launch
         ```
 
     1. `crane_x7_gazebo` の `crane_x7_with_table.launch` と、`crane_x7_d435` の `bringup_sim.launch` を合体させる

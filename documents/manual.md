@@ -298,3 +298,8 @@ SDF ファイルを作成する
 
 roslaunch は受け取りノードの実行。（ Subscliber の起動？） rosrun は送信ノードの実行。（ Publisher の起動？）
 ```
+
+```
+kuwamai の launch を起動して RealSense をくっつけると RealSense から画像のトピックを受け取ることができるようになっている。（すでに）
+```
+
