@@ -3,14 +3,17 @@
   <model name='fork'>
     <link name='link_1'>
       <inertial>
-        <mass>1</mass>
+        <!-- unit : g -->
+        <!-- ↓ g になってて gazebo の単位と違う -->
+        <mass>33.964</mass>
+        <!-- unit : g mm^2 -->
         <inertia>
-          <ixx>0.166667</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.166667</iyy>
-          <iyz>0</iyz>
-          <izz>0.166667</izz>
+          <ixx>19955.172</ixx>
+          <ixy>-655.901</ixy>
+          <ixz>869.533</ixz>
+          <iyy>63808.597</iyy>
+          <iyz>-6674.742</iyz>
+          <izz>61012.822</izz>
         </inertia>
         <pose>0 0 0 0 -0 0</pose>
       </inertial>
