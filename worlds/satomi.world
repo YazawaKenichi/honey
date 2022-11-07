@@ -1,5 +1,5 @@
 <sdf version='1.7'>
-  <world name='satomi'>
+  <world name='CRANE-X7 with Table'>
     <scene>
       <shadows>0</shadows>
       <ambient>0.4 0.4 0.4 1</ambient>
@@ -221,73 +221,6 @@
         <kinematic>0</kinematic>
       </link>
       <pose>0.29 0 0 0 -0 1.5708</pose>
-    </model>
-    <model name='wood_cube_5cm'>
-      <frame name='wood_cube_5cm::__model__' attached_to='wood_cube_5cm::link'>
-        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
-      </frame>
-      <link name='wood_cube_5cm::link'>
-        <pose relative_to='wood_cube_5cm::__model__'>0 0 0.025 0 -0 0</pose>
-        <inertial>
-          <mass>0.0565</mass>
-          <inertia>
-            <ixx>2.35417e-05</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>2.35417e-05</iyy>
-            <iyz>0</iyz>
-            <izz>2.35417e-05</izz>
-          </inertia>
-          <pose>0 0 0 0 -0 0</pose>
-        </inertial>
-        <collision name='collision'>
-          <geometry>
-            <box>
-              <size>0.05 0.05 0.05</size>
-            </box>
-          </geometry>
-          <surface>
-            <contact>
-              <poissons_ratio>0.347</poissons_ratio>
-              <elastic_modulus>8.8e+09</elastic_modulus>
-              <ode>
-                <kp>100000</kp>
-                <kd>1</kd>
-                <max_vel>1</max_vel>
-                <min_depth>0.001</min_depth>
-              </ode>
-            </contact>
-            <friction>
-              <torsional>
-                <coefficient>1</coefficient>
-                <use_patch_radius>0</use_patch_radius>
-                <surface_radius>0.05</surface_radius>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-            <bounce/>
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='visual'>
-          <geometry>
-            <box>
-              <size>0.05 0.05 0.05</size>
-            </box>
-          </geometry>
-          <material>
-            <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Wood</name>
-            </script>
-          </material>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <pose>0.2 0 1 0 -0 0</pose>
     </model>
     <model name='ground_plane'>
       <frame name='ground_plane::__model__' attached_to='ground_plane::link'>
@@ -1249,15 +1182,15 @@
       <link name='crane_x7_gripper_base_link'>
         <pose relative_to='crane_x7_wrist_joint'>0 0 0 0 -0 0</pose>
         <inertial>
-          <pose>0.000108 -0.00103 0.0208 0 -0 0</pose>
-          <mass>0.121</mass>
+          <pose>1.8e-05 0.036859 0.01098 0 -0 0</pose>
+          <mass>0.721</mass>
           <inertia>
-            <ixx>3.2e-05</ixx>
-            <ixy>-9.45e-08</ixy>
-            <ixz>2.61e-07</ixz>
-            <iyy>4.14e-05</iyy>
-            <iyz>3.88e-07</iyz>
-            <izz>4.29e-05</izz>
+            <ixx>0.00125476</ixx>
+            <ixy>4.00634e-07</ixy>
+            <ixz>1.32676e-07</ixz>
+            <iyy>0.00105542</iyy>
+            <iyz>5.4486e-05</iyz>
+            <izz>0.00125164</izz>
           </inertia>
         </inertial>
         <collision name='crane_x7_gripper_base_link_collision'>
@@ -1282,6 +1215,27 @@
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
+        <collision name='crane_x7_gripper_base_link_fixed_joint_lump__camera_base_collision_1'>
+          <pose>0 0.0445 0.021525 1.57079 -1.57079 3.14159</pose>
+          <geometry>
+            <box>
+              <size>0.02505 0.09 0.025</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
         <visual name='crane_x7_gripper_base_link_visual'>
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
@@ -1297,6 +1251,84 @@
             </script>
           </material>
         </visual>
+        <visual name='crane_x7_gripper_base_link_fixed_joint_lump__camera_base_visual_1'>
+          <pose>0 0.0445 0.021525 1.57079 -1.57079 3.14159</pose>
+          <geometry>
+            <box>
+              <size>0.02505 0.09 0.025</size>
+            </box>
+          </geometry>
+        </visual>
+        <sensor name='camera1' type='depth'>
+          <update_rate>30</update_rate>
+          <camera name='depth_camera'>
+            <horizontal_fov>1.21126</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>B8G8R8</format>
+            </image>
+            <clip>
+              <near>0.02</near>
+              <far>300</far>
+            </clip>
+          </camera>
+          <plugin name='camera_plugin' filename='libgazebo_ros_openni_kinect.so'>
+            <baseline>0.2</baseline>
+            <alwaysOn>1</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>camera</cameraName>
+            <imageTopicName>fake_cam_color/image_raw</imageTopicName>
+            <depthImageTopicName>depth/image_raw</depthImageTopicName>
+            <pointCloudTopicName>depth/color/points</pointCloudTopicName>
+            <frameName>camera_depth_optical_frame</frameName>
+            <pointCloudCutoff>0.105</pointCloudCutoff>
+            <pointCloudCutoffMax>10.0</pointCloudCutoffMax>
+            <cameraInfoTopicName>fake_cam_color/camera_info</cameraInfoTopicName>
+            <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+            <robotNamespace>/</robotNamespace>
+          </plugin>
+          <pose>0.0175 0.0445 0.02985 3.14159 -1.57079 1.57079</pose>
+        </sensor>
+        <sensor name='camera2' type='depth'>
+          <update_rate>30</update_rate>
+          <camera name='color_camera'>
+            <horizontal_fov>1.21126</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>B8G8R8</format>
+            </image>
+            <clip>
+              <near>0.02</near>
+              <far>300</far>
+            </clip>
+          </camera>
+          <plugin name='camera_plugin' filename='libgazebo_ros_openni_kinect.so'>
+            <baseline>0.2</baseline>
+            <alwaysOn>1</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>camera</cameraName>
+            <imageTopicName>color/image_raw</imageTopicName>
+            <depthImageTopicName>aligned_depth_to_color/image_raw</depthImageTopicName>
+            <cameraInfoTopicName>color/camera_info</cameraInfoTopicName>
+            <depthImageCameraInfoTopicName>aligned_depth_to_color/camera_info</depthImageCameraInfoTopicName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+            <robotNamespace>/</robotNamespace>
+          </plugin>
+          <pose>0.0325 0.0445 0.02985 3.14159 -1.57079 1.57079</pose>
+        </sensor>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
@@ -1472,20 +1504,20 @@
       <pose>0 0 1.02 0 -0 0</pose>
     </model>
     <model name='fork'>
-      <link name='link_1'>
+      <link name='link_0'>
         <inertial>
-          <mass>1</mass>
+          <mass>0.046813</mass>
           <inertia>
-            <ixx>0.166667</ixx>
+            <ixx>1.251e-05</ixx>
             <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.166667</iyy>
+            <ixz>1.626e-05</ixz>
+            <iyy>0.00015998</iyy>
             <iyz>0</iyz>
-            <izz>0.166667</izz>
+            <izz>0.00015083</izz>
           </inertia>
-          <pose>0 0 0 0 -0 0</pose>
+          <pose>0.07 0 0 0 -0 0</pose>
         </inertial>
-        <pose>0 0 -0 1.5708 -0 0</pose>
+        <pose>0 0 0.0325 0 -0 0</pose>
         <gravity>1</gravity>
         <self_collide>0</self_collide>
         <kinematic>0</kinematic>
@@ -1494,7 +1526,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/shiokaze/Documents/git/fork/m/fork_and_mount_m.stl</uri>
+              <uri>/home/shiokaze/catkin_ws/src/honey/models/meshes/fork.stl</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -1521,7 +1553,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>/home/shiokaze/Documents/git/fork/m/fork_and_mount_m.stl</uri>
+              <uri>/home/shiokaze/catkin_ws/src/honey/models/meshes/fork.stl</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -1574,85 +1606,85 @@
       </link>
       <static>0</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>0.533472 0.55415 0 0 -0 0</pose>
+      <pose>0.582196 0.234703 0 0 -0 0</pose>
     </model>
     <state world_name='CRANE-X7 with Table'>
-      <sim_time>115 374000000</sim_time>
-      <real_time>125 847951806</real_time>
-      <wall_time>1667187410 139584762</wall_time>
-      <iterations>115374</iterations>
+      <sim_time>149 774000000</sim_time>
+      <real_time>260 904365737</real_time>
+      <wall_time>1667825434 482600798</wall_time>
+      <iterations>149774</iterations>
       <model name='crane_x7'>
-        <pose>0 0 1.02 0 -0 0</pose>
+        <pose>0 -1e-06 1.02 -5.6e-05 -2.5e-05 0</pose>
         <scale>1 1 1</scale>
         <link name='base_link'>
-          <pose>0 0 1.02 0 -0 0</pose>
-          <velocity>-0 0 -0 0 -0 0</velocity>
-          <acceleration>-0 0 0 3.6e-05 2.3e-05 1.3e-05</acceleration>
-          <wrench>-0 0 0 0 -0 0</wrench>
+          <pose>0 -1e-06 1.02 -5.6e-05 -2.5e-05 0</pose>
+          <velocity>0 0 0 1.1e-05 -1e-06 0</velocity>
+          <acceleration>-1e-06 -6e-06 3.2e-05 -0.005787 0.003805 -0.002493</acceleration>
+          <wrench>-0 -2e-06 1.2e-05 0 -0 0</wrench>
         </link>
         <link name='crane_x7_gripper_base_link'>
-          <pose>3e-05 3e-06 1.644 2e-06 0.002992 0.003597</pose>
-          <velocity>-0 0 0 0 -1e-06 -4e-06</velocity>
-          <acceleration>-0 0 0 0.115077 -0.072297 0.049652</acceleration>
-          <wrench>-0 0 0 0 -0 0</wrench>
+          <pose>0.201037 -0.001176 1.07009 1.58644 0.016774 1.56361</pose>
+          <velocity>-0.000538 0.000706 0.00051 0.000468 -0.003163 0.005968</velocity>
+          <acceleration>-0.013204 0.014597 0.002639 1.74046 1.4065 -1.21158</acceleration>
+          <wrench>-0.00952 0.010524 0.001903 0 -0 0</wrench>
         </link>
         <link name='crane_x7_gripper_finger_a_link'>
-          <pose>-0.011899 -4e-05 1.66803 2e-06 -0.003269 0.003598</pose>
-          <velocity>-0 0 -0 0 -2.4e-05 -4e-06</velocity>
-          <acceleration>0 0 -0 2.96468 1.39418 -1.78589</acceleration>
-          <wrench>0 0 -0 0 -0 0</wrench>
+          <pose>0.224948 -0.013352 1.06992 1.58622 0.01697 1.55101</pose>
+          <velocity>-0.000463 0.000853 0.000583 0.000454 -0.003171 0.005808</velocity>
+          <acceleration>0.000681 0.025942 0.011658 -2.10598 -0.205423 -0.654961</acceleration>
+          <wrench>1.1e-05 0.00041 0.000184 0 -0 0</wrench>
         </link>
         <link name='crane_x7_gripper_finger_b_link'>
-          <pose>0.012101 4.6e-05 1.66796 2e-06 0.009253 0.003598</pose>
-          <velocity>-0 -0 0 0 2.3e-05 -4e-06</velocity>
-          <acceleration>0 -0 0 -0 -0 -1e-06</acceleration>
-          <wrench>0 -0 0 0 -0 0</wrench>
+          <pose>0.22512 0.010644 1.06952 1.58665 0.016576 1.57621</pose>
+          <velocity>-0.000605 0.000851 0.000595 0.000464 -0.003163 0.005995</velocity>
+          <acceleration>-0.008275 0.036181 0.017306 0.370366 -0.20307 0.411159</acceleration>
+          <wrench>-0.000115 0.000503 0.000241 0 -0 0</wrench>
         </link>
         <link name='crane_x7_lower_arm_fixed_part_link'>
-          <pose>-0.00025 1e-06 1.375 -5e-06 0.000892 -0.000168</pose>
-          <velocity>-0 0 -0 0 -1e-06 0</velocity>
-          <acceleration>0 0 -0 -1.19585 -0.004211 0.025747</acceleration>
-          <wrench>0 0 -0 0 -0 0</wrench>
+          <pose>0.097899 -0.230067 1.12484 1.79602 -0.223039 2.73894</pose>
+          <velocity>0.000365 0.000157 1.2e-05 0.001586 -0.0013 0.004244</velocity>
+          <acceleration>0.00667 0.006472 -0.001957 2.59802 -0.755258 1.42368</acceleration>
+          <wrench>0.001481 0.001437 -0.000434 0 -0 0</wrench>
         </link>
         <link name='crane_x7_lower_arm_revolute_part_link'>
-          <pose>-0.000142 2e-06 1.496 -3e-06 0.000892 0.001842</pose>
-          <velocity>-0 0 -0 0 -1e-06 0</velocity>
-          <acceleration>0 -0 0 1.21786 0.013132 -0.018816</acceleration>
-          <wrench>0 -0 0 0 -0 0</wrench>
+          <pose>0.138623 -0.119215 1.09848 1.79076 0.060375 2.80304</pose>
+          <velocity>-6.5e-05 0.00037 0.000236 0.001544 -0.001179 0.004309</velocity>
+          <acceleration>0.000236 0.006666 -0.007977 -2.75866 0.088484 1.95281</acceleration>
+          <wrench>4.9e-05 0.00138 -0.001651 0 -0 0</wrench>
         </link>
         <link name='crane_x7_shoulder_revolute_part_link'>
-          <pose>0 0 1.061 0 0 -0.002004</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 0 0.031454 -0.023328 0.00945</acceleration>
-          <wrench>0 -0 0 0 -0 0</wrench>
+          <pose>1.1e-05 -1.9e-05 1.061 1.1e-05 2.9e-05 -1.1685</pose>
+          <velocity>-0 3e-06 -0 -1.1e-05 5e-06 0.001574</velocity>
+          <acceleration>-7.9e-05 0.000359 -6e-05 1.56606 1.50851 2.74652</acceleration>
+          <wrench>-2e-05 9.1e-05 -1.5e-05 0 -0 0</wrench>
         </link>
         <link name='crane_x7_upper_arm_fixed_part_link'>
-          <pose>0 0 1.125 -2e-06 -0.001002 -0.002004</pose>
-          <velocity>-0 0 0 0 -1e-06 0</velocity>
-          <acceleration>0 -0 0 0.553746 -0.004827 0.000969</acceleration>
-          <wrench>0 -0 0 0 -0 0</wrench>
+          <pose>1.2e-05 -2.1e-05 1.12498 -3.11443 1.57055 2.00026</pose>
+          <velocity>0 4e-06 1e-06 -3e-05 0 0.001574</velocity>
+          <acceleration>0.001472 0.001059 0.000381 -0.556118 -0.556761 0.936497</acceleration>
+          <wrench>0.0002 0.000144 5.2e-05 0 -0 0</wrench>
         </link>
         <link name='crane_x7_upper_arm_revolute_part_link'>
-          <pose>-6.5e-05 0 1.19 -5e-06 -0.001002 -0.000168</pose>
-          <velocity>-0 0 -0 0 -1e-06 0</velocity>
-          <acceleration>0 0 0 -1.05461 0.001432 0.057077</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
+          <pose>0.025462 -0.059832 1.12496 1.57145 0.315616 0.402479</pose>
+          <velocity>9.4e-05 4.5e-05 1e-06 0.000687 -0.001887 0.001569</velocity>
+          <acceleration>0.007448 0.00299 0.001967 -2.07778 -0.356964 -0.788938</acceleration>
+          <wrench>0.002391 0.00096 0.000631 0 -0 0</wrench>
         </link>
         <link name='crane_x7_wrist_link'>
-          <pose>-2.7e-05 3e-06 1.625 -3e-06 0.002993 0.001842</pose>
-          <velocity>-0 0 0 0 -1e-06 0</velocity>
-          <acceleration>0 -0 0 2.53942 -0.10851 1.55861</acceleration>
-          <wrench>0 -0 0 0 -0 0</wrench>
+          <pose>0.182039 -0.001034 1.07039 1.58685 0.227406 1.56695</pose>
+          <velocity>-0.00054 0.000596 0.00046 0.00125 -0.001567 0.005561</velocity>
+          <acceleration>-0.005009 0.005467 -0.013826 1.23092 -1.34517 2.83953</acceleration>
+          <wrench>-0.000701 0.000765 -0.001936 0 -0 0</wrench>
         </link>
       </model>
       <model name='fork'>
-        <pose>0.299527 0 1.02171 -1e-05 0.051229 3.1414</pose>
+        <pose>0.3 2e-06 1.01499 -3e-06 -1.3e-05 -2.5e-05</pose>
         <scale>1 1 1</scale>
-        <link name='link_1'>
-          <pose>0.299527 0 1.02171 1.57079 0.051229 3.1414</pose>
+        <link name='link_0'>
+          <pose>0.299999 2e-06 1.04749 -3e-06 -1.3e-05 -2.5e-05</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
-          <wrench>0 0 -9.8 0 -0 0</wrench>
+          <acceleration>0 0 -9.8 -1e-06 1e-06 -3.3e-05</acceleration>
+          <wrench>0 0 -0.458767 0 -0 0</wrench>
         </link>
       </model>
       <model name='ground_plane'>
@@ -1675,23 +1707,13 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='wood_cube_5cm'>
-        <pose>0.195595 0.001608 1.014 -0 -0 -0.095082</pose>
-        <scale>1 1 1</scale>
-        <link name='wood_cube_5cm::link'>
-          <pose>0.195595 0.001608 1.039 -0 -0 -0.095082</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 0 0 -0 0</acceleration>
-          <wrench>0 -0 0 0 -0 0</wrench>
-        </link>
-      </model>
       <light name='sun'>
         <pose>0 0 10 0 -0 0</pose>
       </light>
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>1.44278 -0.899135 2.08678 0 0.619643 2.3802</pose>
+        <pose>0.694809 -1.09541 2.10463 0 0.795642 2.0362</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
