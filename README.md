@@ -77,6 +77,12 @@ ls
 image_listener_test.py  satomi_sim.py
 ```
 
+4. 実行するスクリプトを決めたら、以下でスクリプトを実行してください
+
+```
+rosrun honey satomi_sim.py
+```
+
 #### satomi_sim.py
 
 Gazebo 内にある RealSense D435 の画像データから、顔を検出し、口の中心座標を terminal に print するスクリプト。
@@ -100,6 +106,3 @@ cd ~/catkin_ws/honey/videos/
 source append_video.bash
 ```
 
-#### 
-
-まだ製作途中であります。
