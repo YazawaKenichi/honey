@@ -23,7 +23,7 @@ def center(points):
 
 def callback(data):
     global i
-    if i >= 30 / 2:
+    if i >= 150:
         i = 0
     else:
         bridge = CvBridge()

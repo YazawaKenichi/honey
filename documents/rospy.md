@@ -33,7 +33,128 @@ rostopic info TOPIC_NAME
 ```
 
 ## 自発的にノードが終了するのを防ぐ
-コールバック関数の中で呼び出す
+コールバック関数の中で呼び出す参考
 ```
 rospy.spin()
 ```
+
+## あるトピックからメッセージをサブスクライブし、他のトピックにメッセージをパブリッシュする
+```
+#! /usr/bin/env python
+# coding: utf-8
+
+import rospy
+from std_msgs.msg import String
+
+import time
+
+class testNode():
+    # 初期化
+    def __init__(self):
+        # Subscriberの作成
+        self.sub = rospy.Subscriber('topic name', String, self.callback)
+        # Publisherの作成
+        self.pub = rospy.Publisher('topic name', String, queue_size = 1)
+
+    # Subscribe したら以下を実行
+    def callback(self, data):
+        # callback関数の処理をかく
+        # data を publish する
+        self.publish(data)
+
+    # 好きなときに publish できるように関数化しておく
+    def publish(self, data):
+        # data を pub = rospy.Publisher() で決めた通りに publish する
+        self.pub.publish(data)
+
+    def function(self, data):
+        # そのほかの処理もあったら書く
+        return data
+
+if __name__ == '__main__':
+    rospy.init_node('test_node')
+
+    time.sleep(3.0)
+    node = testNode()
+
+    while not rospy.is_shutdown():
+        rospy.sleep(0.1)
+```
+
+### 参考
+[【Python】ROSのプログラムをPythonのclassを使ったらとても便利だった (Qiita)](https://qiita.com/koichi_baseball/items/d15d52856188120647f4)
+
+# ROS msgs.msg
+## sensor_msgs.msg
+### sensor_msgs.msg/Image
+#### Image 型メッセージを OpenCV で読む
+
+下記の式は、トピック '/camera/fake_cam_color/image_raw' にパブリッシュされた 'sensor_msgs.msg/Image' 型の画像メッセージを、OpenCV で処理可能な 'np.ndarray' 型の画像クラスに変換する。
+
+```
+cv2_array = CvBridge().imgmsg_to_cv2(ros_array)
+```
+
+それを受けて試しに作成したコードが以下
+
+```
+import os
+import cv2
+import rospy
+import numpy as np
+from sensor_msgs.msg import Image
+
+# 型変換のためのインポート
+from cv_bridge import CvBridge
+
+i = 0
+
+# サブスクライブしたら data にメッセージが入り、以下の関数を実行
+def callback(data):
+    global i
+    print(i)
+    try:
+        # データ変換クラスのインスタンス化
+        bridge = CvBridge()
+        # 実際にデータ変換を行う
+        cv2_array = bridge.imgmsg_to_cv2(data)
+        # サブスクライブした画像を '../images/******.png' に保存
+        # str(i).zfill(6) : 数字が 6 桁になるようにゼロ埋め
+        cv2.imwrite("../images/" + str(i).zfill(6) + ".png", cv2_array)
+        # rospy.loginfo(cv2_array)
+    except Exception as err:
+        rospy.logerr(err)
+    if i >= 300:
+        i = 0
+    else:
+        i = i + 1
+
+def listener():
+    rospy.init_node('image_listener_test.py', anonymous = True)
+    rospy.Subscriber("/camera/fake_cam_color/image_raw", Image, callback)
+    rospy.spin()
+
+if __name__ == '__main__':
+    if not os.path.exists("../images/"):
+        os.mkdir('../images/')
+    listener()
+
+```
+
+全体的な流れ
+
+1. ノードを立ち上げる
+1. トピックからメッセージをサブスクライブする
+1. サブスクライブされたら 'Image' 型から 'ndarray' 型に変換する
+1. 変換した画像を保存する
+1. 300 枚保存したら 0 枚目から上書きしていく
+
+つまり最終的に、センサからの動画が連続画像として保存される。
+
+これを動画に変換することで動画を作成する。
+
+> [この方法を取る理由] はじめは 'cv2.imread()' を用いれば、OpenCV で画像表示ができると考え、'cv2.imwrite()' を 'cv2.imread()' でやっていた。しかし実際にやってみると、描画速度の問題なのか、OpenCV の内部処理的な問題なのか、重くて固まるし、肝心のウィンドウは真っ暗なため、リアルタイムで閲覧することはできないと判断し、とりあえず、画像を保存する手段を取った。
+
+### 参考
+[Converting between ROS images (Python)](https://wiki.ros.org/cv_bridge/Tutorials/ConvertingBetweenROSImagesAndOpenCVImagesPython)
+

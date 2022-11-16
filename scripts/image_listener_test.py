@@ -1,8 +1,11 @@
-#/usr/bin/env python3
+#!/usr/bin/env python3
+# coding: utf-8
+
 import rospy
 import numpy as np
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
+from std_msgs.msg import String
 import cv2
 import os
 
