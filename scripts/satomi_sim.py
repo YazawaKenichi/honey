@@ -12,8 +12,6 @@ import mediapipe as mp
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
 
-# from utils import CvFpsCalc
-
 i = 0
 
 def center(points):
