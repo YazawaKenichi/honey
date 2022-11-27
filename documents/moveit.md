@@ -9,7 +9,30 @@ import moveit_commander
 ```
 
 ### class moveit_commander.MoveGroupCommander(name, robot_description='robot_description', ns='')
+### 公式説明
 指定されたグループに対してコマンドを実行します。
+
+### 自分の言葉で補足説明
+ロボット全体のリンクではなく、どこかに任意に指定されたリンクに対して操作を実行することができるようになるクラス
+
+例えば、一つのロボットでも「右腕」と「左腕」の二つのアームがあった時に、右腕と左腕別々でインスタンス化して別々で操作することが可能になる
+
+そのコードが以下の通り
+
+```
+rarm = moveit_commander.MoveGroupCommander("right_arm")
+larm = moveit_commander.MoveGroupCommander("left_arm")
+```
+
+#### 引数の説明
+第一引数 `name` は、`srdf` 内で定義されている (`urdf` で定義されていることもあるかも？)
+
+例えば、`CRANE-X7` では、`arm` という名前のグループと、`gripper` という名前のグループがある
+
+これらは、`crane_x7_ros/crane_x7_moveit_config/config/crane_x7.srdf` 内で定義されている。
+
+#### 参考
+[MoveIt! の Python API を使って NEXTAGE を動かしてみよう](http://daikimaekawa.github.io/ros/2014/06/08/ROSNextage02)
 
 #### __init__(name, robot_description='robot_description', ns='')
 このインターフェースを利用する対象となるグループ名を指定します。初期化に失敗した場合、例外をスローします。

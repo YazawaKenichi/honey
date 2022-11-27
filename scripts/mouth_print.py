@@ -68,11 +68,7 @@ def mediapipe(cv2_array):
 
     # モデルロード #############################################################
     mp_face_mesh = mp.solutions.face_mesh
-    face_mesh = mp_face_mesh.FaceMesh(
-        max_num_faces=max_num_faces,
-        min_detection_confidence=min_detection_confidence,
-        min_tracking_confidence=min_tracking_confidence,
-    )
+    face_mesh = mp_face_mesh.FaceMesh(max_num_faces=max_num_faces, min_detection_confidence=min_detection_confidence, min_tracking_confidence=min_tracking_confidence)
 
     # カメラキャプチャ #####################################################
     image = cv2_array
@@ -105,6 +101,7 @@ def draw_landmarks(image, landmarks):
 
     # 口の特徴点を格納
     mouth_points = np.array([landmark_point[0], landmark_point[1]])
+    # 口の座標を標準出力
     print(center(mouth_points))
 
     return image
