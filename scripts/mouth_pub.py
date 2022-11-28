@@ -41,7 +41,6 @@ def get_args():
 
     return args
 
-
 def mediapipe(cv2_array):
     # 引数解析 #################################################################
     args = get_args()
