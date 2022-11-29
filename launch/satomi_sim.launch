@@ -56,4 +56,6 @@
     <arg name="use_gui" default="$(arg use_gui)" />
   </include>
 
+  <node name="mouth_pub.py" pkg="honey" type="mouth_pub.py" />
+
 </launch>

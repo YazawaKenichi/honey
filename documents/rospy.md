@@ -85,6 +85,34 @@ if __name__ == '__main__':
 [【Python】ROSのプログラムをPythonのclassを使ったらとても便利だった (Qiita)](https://qiita.com/koichi_baseball/items/d15d52856188120647f4)
 
 # ROS msgs.msg
+## std_masgs.msg
+### std_msgs.msg/Int16MultiArray
+#### 任意の numpy.ndarray 型データを Publish する
+##### 型変換
+`numpy.ndarray` 型配列を Publish するときは `std_msgs.msg/Int16MultiArray` 型配列に変換する必要がある
+
+型変換の方法は今まで見たこと無いかも？
+
+今まで通りの方法で型変換するとエラーを吐く
+
+以下の方法で型変換ができる
+
+```
+data_pub = Int16MultiArray(data = data_ndarray)
+```
+
+##### クラスのインスタンス化
+```
+publisher = rospy.Publisher(TOPICNAME, Int16MultiArray, queue_size = 10)
+```
+
+`queue_size` はデータがロストしないようなサイズを指定する必要がある
+
+`queue_size = 1` が何バイトのキューなのかわからんけど...
+
+#### 参考
+[std_msgs/Int16MultiArray Message](http://docs.ros.org/en/melodic/api/std_msgs/html/msg/Int16MultiArray.html)
+
 ## sensor_msgs.msg
 ### sensor_msgs.msg/Image
 #### Image 型メッセージを OpenCV で読む
@@ -157,4 +185,77 @@ if __name__ == '__main__':
 
 ### 参考
 [Converting between ROS images (Python)](https://wiki.ros.org/cv_bridge/Tutorials/ConvertingBetweenROSImagesAndOpenCVImagesPython)
+
+## rospy + signal
+### [Ctrl] + [C] できれいに終わるようにする
+
+```
+#!/usr/bin/env python3
+# coding: utf-8
+
+import signal
+import rospy
+
+cont = True
+
+def handler(signal, frame):
+    global cont
+    cont = False
+
+def the_node():
+    global cont
+
+    rospy.init_node('the_node', disable_signals = True)
+
+    rate = rospy.Rate(40)
+    while cont:
+
+        # main process
+
+        rate.sleep()
+
+    rospy.signal_shutdown('finish')
+    rospy.spin()
+
+if __name__ == '__main__':
+    signal.signal(signal.SIGINT, handler)
+    the_node()
+```
+
+#### 参考
+[[rospy] ctrl-cで綺麗に終わるようにする - Qiita](https://qiita.com/idev_jp/items/bade8361301b0c1db417)
+
+## perser
+### python コード実行時に引数処理をする
+
+```
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--text', '-t', type=str, dest='text', help='set message to speech')
+    parser.add_argument('--label', '-l', metavar='L', type=str, nargs='?', dest='label', help='set label for this message')
+    parser.add_argument('-p', action='store_true', dest='periodic_flag', help='set either periodic message or not')
+    args = parser.parse_args()
+
+    rospy.init_node( ...
+```
+
+これ記述しないと `launch` ファイルで `<node>` 指定してスクリプト実行するときにエラー吐きまくる
+
+具体的なエラーはたとえば以下のようなもの（あくまで例）
+
+```
+process[makeSoundRequest-1]: started with pid [11925]
+usage: makeSoundRequest.py [-h] [--text TEXT] [--label [L]] [-p]
+makeSoundRequest.py: error: unrecognized arguments: __name:=makeSoundRequest __log:=/home/nvidia/.ros/log/0681ca48-10f0-11ea-8929-00044bc771c7/makeSoundRequest-1.log
+[makeSoundRequest-1] process has died [pid 11925, exit code 2, cmd /home/nvidia/catkin_ws/src/sound_indication/scripts/makeSoundRequest.py --text please say something --label mode1 __name:=makeSoundRequest __log:=/home/nvidia/.ros/log/0681ca48-10f0-11ea-8929-00044bc771c7/makeSoundRequest-1.log].
+log file: /home/nvidia/.ros/log/0681ca48-10f0-11ea-8929-00044bc771c7/makeSoundRequest-1*.log
+all processes on machine have died, roslaunch will exit
+```
+
+ポイントは `---.py: error: unrecognized arguments: __name:=--- __log:=/home/---/.ros/log/--------------/---------.log` の部分
+
+#### 参考
+[[easy] launch file syntax: how to pass quotation mark to a python script](https://answers.ros.org/question/338617/easy-launch-file-syntax-how-to-pass-quotation-mark-to-a-python-script/)
+
+
 
