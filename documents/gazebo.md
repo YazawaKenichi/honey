@@ -131,6 +131,58 @@ roslaunch は ROS ノードを起動し、ROS でロボットを起動するた�
     $ roslaunch honey satomi.launch
     ```
 
+## Node を作成して立ち上げる
+ここでは `sample.py` を作成済みであると仮定する。
+
+### 実行
+
+```
+rosrun honey sample.py
+```
+
+を実行するだけで `sample.py` が起動する。
+
+```
+./sample.py
+python sample.py
+```
+
+などでも使用可能
+
+毎回いちいち実行するのは面倒なので `launch` ファイルに記述して自動でノードを起動するようにする
+
+### 自動実行するようにする
+
+`satomi.launch` に以下の行を追加する。
+
+```
+<node name="sample.py" pkg="honey" type="sample.py" />
+```
+
+これだけで `satomi.launch` を起動した瞬間 `sample.py` を実行してくれるようになる。
+
+#### 躓いたこと
+`---.py: error: unrecognized arguments: __name:=--- __log:=/home/---/.ros/log/--------------/---------.log`
+のような文章が大量に高速で表示されるときの対処法（rospy.md にも記述済み）
+
+`sample.py` を以下のように追記する。
+
+```
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--text', '-t', type=str, dest='text', help='set message to speech')
+    parser.add_argument('--label', '-l', metavar='L', type=str, nargs='?', dest='label', help='set label for this message')
+    parser.add_argument('-p', action='store_true', dest='periodic_flag', help='set either periodic message or not')
+    args = parser.parse_args()
+
+    rospy.init_node( ...
+```
+
+ROS launch を実行したときに python スクリプトに引数が渡されているかのような文章が見受けられるので perser を用いて引数を処理する
+
+##### 参考
+[[easy] launch file syntax: how to pass quotation mark to a python script](https://answers.ros.org/question/338617/easy-launch-file-syntax-how-to-pass-quotation-mark-to-a-python-script/)
+
 ## 参考サイト
 - [Tutorial : Gazebo Model Editor (Englis)](https://classic.gazebosim.org/tutorials?tut=guided_b3)
 - [ROS講座37 gazebo worldを作成する (Japanese)](https://qiita.com/srs/items/9b23ad12bea9e3ec0480)
