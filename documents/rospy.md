@@ -186,6 +186,32 @@ if __name__ == '__main__':
 ### 参考
 [Converting between ROS images (Python)](https://wiki.ros.org/cv_bridge/Tutorials/ConvertingBetweenROSImagesAndOpenCVImagesPython)
 
+## geometry_msgs
+### geometry_msgs/Pose
+``` Python
+geometry_msgs/Point position
+geometry_msgs/Quaternion orientation
+```
+### geometry_msgs/Twist
+``` Python
+Vector3 linear
+Vector3 angular
+```
+#### linear
+``` Python
+linear = [float32 x, float32 y, float32 z]
+```
+並進方向の速度 [ m / s ] を与える
+
+#### angular
+``` Python
+angular = [float32 x, float32 y, float32 z]
+```
+回転方向の角速度 [ rad / s ] を与える
+
+#### 参考
+- [geometry_msgs/Twist - ROS Documentation](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html)
+- [7.3 Twist メッセージによるロボットの移動 - 毎日がロボット勉強会](http://dailyrobottechnology.blogspot.com/2014/12/73-twist.html)
 ## rospy + signal
 ### [Ctrl] + [C] できれいに終わるようにする
 

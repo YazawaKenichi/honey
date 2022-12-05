@@ -21,6 +21,7 @@ import actionlib
 import math
 import random
 from geometry_msgs.msg import Point, Pose
+# ModelStates : Gazebo 上のモデルの状態を取得する
 from gazebo_msgs.msg import ModelStates
 from control_msgs.msg import GripperCommandAction, GripperCommandGoal
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
@@ -87,26 +88,33 @@ def main():
         rospy.sleep(sleep_time)
         print("Start")
 
-        # オブジェクトがgazebo上に存在すれば、pick_and_placeを実行する
+        # オブジェクト OBJECT_NAME = "wood_cube_5cm" が gazebo 上 gazebo_model_states に存在すれば、pick_and_placeを実行する
         if OBJECT_NAME in gazebo_model_states.name:
+            # オブジェクト名と一致する場所のインデックス番号を `object_index` に格納する
             object_index = gazebo_model_states.name.index(OBJECT_NAME)
             # オブジェクトの姿勢を取得
             object_position = gazebo_model_states.pose[object_index].position
             object_orientation = gazebo_model_states.pose[object_index].orientation
+            # Quaternion をオイラー角に変換し Yaw 角を出す
             object_yaw = yaw_of(object_orientation)
 
             # オブジェクトに接近する
             # geometry_msg.msg > class Pose()
             # Point, Quaternion
+            # Pose クラスのインスタンス化
             target_pose = Pose()
+            # ターゲットオブジェクトの位置をしていするが、z 軸（高さ）だけターゲットオブジェクトの位置から離す
             target_pose.position.x = object_position.x
             target_pose.position.y = object_position.y
             target_pose.position.z = APPROACH_Z
+            # オイラー角から Quaternion を計算する返り値は [x, y, z, w] のリスト
             q = quaternion_from_euler(-math.pi, 0.0, object_yaw)
+            # 基準姿勢からのエンドエフェクタの姿勢を与える
             target_pose.orientation.x = q[0]
             target_pose.orientation.y = q[1]
             target_pose.orientation.z = q[2]
             target_pose.orientation.w = q[3]
+            # 実際に計算したところに向けて動かす
             arm.set_pose_target(target_pose)
             if arm.go() is False:
                 print("Failed to approach an object.")
