@@ -88,6 +88,8 @@ def main():
         rospy.sleep(sleep_time)
         print("Start")
 
+        print(gazebo_model_states.name)
+
         # オブジェクト OBJECT_NAME = "wood_cube_5cm" が gazebo 上 gazebo_model_states に存在すれば、pick_and_placeを実行する
         if OBJECT_NAME in gazebo_model_states.name:
             # オブジェクト名と一致する場所のインデックス番号を `object_index` に格納する
@@ -195,3 +197,4 @@ if __name__ == '__main__':
             main()
     except rospy.ROSInterruptException:
         pass
+
