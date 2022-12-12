@@ -73,14 +73,12 @@ ls
 
 結果
 
-```
-image_listener_test.py  satomi_sim.py
-```
+** 書き途中 **
 
 4. 実行するスクリプトを決めたら、以下でスクリプトを実行してください
 
 ```
-rosrun honey satomi_sim.py
+rosrun honey mouth_pub.py
 ```
 
 #### satomi_sim.py
