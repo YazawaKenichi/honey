@@ -1,5 +1,13 @@
 # Honey
 
+※ 注意 CAUTION ※
+
+このパッケージの開発は [my_stan ( in nacky823 's git repository )](https://github.com/nacky823/my_stan) に移行されました。
+
+現在この `Honey` パッケージとしての開発は停止しています。
+
+The development of the [honey](https://github.com/yazawakenichi/honey) package has been stopped, and the development has been moved to the [my_stan](https://github.com/nacky823/my_stan) package.
+
 ## パッケージについて
 このパッケージは[株式会社アールティ様のパッケージ]を使用して、千葉工業大学未来ロボティクス学科 2022 年度 設計製作論 3 知能コース において、チーム「転ばぬ先のソイヤ」が作成したものです。
 
