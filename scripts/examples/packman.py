@@ -37,6 +37,7 @@ from control_msgs.msg import (
 
 class GripperClient(object):
     def __init__(self):
+        # 命令を送信して返信をもらう通信を実現する
         self._client = actionlib.SimpleActionClient("/crane_x7/gripper_controller/gripper_cmd",GripperCommandAction)
         self._goal = GripperCommandGoal()
 

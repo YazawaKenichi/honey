@@ -1,6 +1,0 @@
-mass : 0.046813 kg
-Inertia:
-	Ixx          0.00001251 kg m^2
-	Iyx Iyy     -0.00000000 kg m^2  0.00015998 kg m^2
-	Izx Izy Izz  0.00001626 kg m^2 -0.00000000 kg m^2 0.00015083 kg m^2
-
